@@ -1,0 +1,82 @@
+scalar Time
+
+# Тип Account представляет аккаунт пользователя
+type Account {
+	id: String!
+	name: String!
+	orders: [Order!]!
+}
+
+# Тип Product представляет товар
+type Product {
+	id: String!
+	name: String!
+	description: String!
+	price: Float!
+}
+
+# Тип Order представляет заказ
+type Order {
+	id: String!
+	createAt: Time!
+	totalPrice: Float!
+	products: [OrderedProduct!]!
+}
+
+# Тип OrderedProduct товар в заказе
+type OrderedProduct {
+	id: String!
+	name: String!
+	description: String!
+	price: Float!
+	quantity: Int!
+}
+
+# Входной тип для пагинации
+input PaginationInput {
+	skip: Int
+	take: Int
+}
+
+# Входной тип для аккаунта
+input AccountInput {
+	name: String!
+}
+
+# Входной тип для продукта
+input ProductInput {
+	name: String!
+	description: String!
+	price: Float!
+}
+
+# Входной тип для продукта в заказе
+input OrderProductInput {
+	id: String!
+	quantity: Int!
+}
+
+# Входной тип для заказа
+input OrderInput {
+	accountId: String!
+	products: [OrderProductInput!]!
+}
+
+type Mutation {
+	# Мутация для создания аккаунта
+	createAccount(account: AccountInput!): Account
+
+	# Мутация для создания продукта
+	createProduct(product: ProductInput!): Product
+
+	# Мутация для создания заказа
+	createOrder(order: OrderInput!): Order
+}
+
+type Query {
+	# Запрос на получение аккаунта
+	account(pagination: PaginationInput, id: String): [Account!]!
+
+	# Запрос на получение продуктов
+	products(pagination: PaginationInput, query: String, id: String): [Product!]!
+}

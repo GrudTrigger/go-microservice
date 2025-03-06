@@ -1,0 +1,9 @@
+1. Каждый микросервис в данном проекте, это отдельная папка в корне.
+2. Для каждого микросервиса мы создаем отдельные сервисы в docker-compose файле \
+
+
+go run github.com/99designs/gqlgen generate - запуск генерации схемы Graphql
+
+2:19:24
+
+СТРУКТУРА ЗАПРОСА В МИКРОСЕРВИСАХ = API GATEWAY -> CLIENT -> SERVER -> SERVICE -> REPOSITORY -> DATABASE
