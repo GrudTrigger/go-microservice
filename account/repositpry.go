@@ -42,14 +42,14 @@ func(r *postgresRepository) Ping() error {
 
 func(r *postgresRepository) PutAccount(ctx context.Context, a Account) error {
 	// INSERT INTO это добавления новых строк в таблицу account | (id, name): Столбцы, в которые вставляются данные |VALUES($1, $2) Значения для вставки | a.ID, a.Name что вставляем вместо $1 и $2
-	_, err := r.db.ExecContext(ctx, "INSERT INTO account(id,name) VALUES($1, $2)", a.ID, a.Name)
+	_, err := r.db.ExecContext(ctx, "INSERT INTO accounts(id,name) VALUES($1, $2)", a.ID, a.Name)
 	return err
 }
 
 func(r *postgresRepository) GetAccountByID(ctx context.Context, id string) (*Account, error) {
 	// QueryRowContext - поиск в таблице которое вернет только 1 результат, например поиск по уникальному индентификатору
 	// возвращает *sql.Row - и метод скан кладет столбцы которые найдены в переменные которые указанны в Scan
-	r.db.QueryRowContext(ctx, "SELECT id, name FROM account WHERE id = $1", id)
+	row := r.db.QueryRowContext(ctx, "SELECT id, name FROM accounts WHERE id = $1", id)
 	a := &Account{}
 	if err := row.Scan(&a.ID, &a.Name); err != nil {
 		return nil, err
