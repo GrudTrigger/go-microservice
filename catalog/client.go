@@ -11,7 +11,7 @@ type Client struct {
 	conn *grpc.ClientConn
 	service pb.CatalogServiceClient
 }
-
+// pb.CatalogServiceClient - отвечает за отправку запросов серверу (server.go)
 func NewClient(url string)(*Client, error) {
 	conn, err := grpc.Dial(url, grpc.WithInsecure())
 	if err != nil {

@@ -17,6 +17,7 @@ type grpcServer struct {
 }
 
 // Запуск GRPC сервера
+// Попросить у чата подробно рассказать что делает функция
 func ListenGRPC(s Service, port int) error {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
